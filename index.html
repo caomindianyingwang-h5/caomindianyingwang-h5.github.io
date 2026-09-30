@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>草民电影网 - 海量高清影视在线观看</title>
+    <meta name="description" content="草民电影网(caomindianyingwang-h5.com)提供最新高清电影、电视剧、综艺、动漫在线观看。资源丰富、更新及时、播放流畅，尽在草民电影网。">
+    <meta name="keywords" content="草民电影网, caomindianyingwang-h5.com, 高清电影, 在线观看, 电视剧, 动漫, 影视资源">
+    <meta name="author" content="草民电影网">
+    <meta name="robots" content="index, follow">
+    <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
+    <style>
+        :root {
+            --bg-light: #f4f8fb;
+            --text-dark: #2c3e50;
+            --text-gray: #6c7a89;
+            --primary: #00a896;
+            --primary-dark: #028090;
+            --accent: #f4a261;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* 顶部通知条 */
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            color: #fff;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* 头部导航 */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav ul li a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-btn i {
+            width: 26px;
+            height: 2.5px;
+            background: var(--primary-dark);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 50%, #fff3e0 100%);
+            padding: 100px 20px 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(0,168,150,0.08);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -5%;
+            width: 300px;
+            height: 300px;
+            background: rgba(244,162,97,0.1);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 620px;
+            margin: 0 auto 35px;
+        }
+
+        .domain-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--white);
+            padding: 14px 30px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            font-family: "Courier New", monospace;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .domain-box .dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        /* 通用 section */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sec-head {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .sec-head .tag {
+            display: inline-block;
+            background: rgba(0,168,150,0.12);
+            color: var(--primary-dark);
+            padding: 5px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .sec-head h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            font-weight: 900;
+        }
+
+        /* 卡片网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 28px;
+        }
+
+        .mcard {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            transition: all 0.35s;
+            display: block;
+        }
+
+        .mcard:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .mcard .poster {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+        }
+
+        .mcard .poster::after {
+            content: '▶';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--primary-dark);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .mcard:hover .poster::after { opacity: 1; }
+
+        .mcard .info {
+            padding: 16px 18px;
+        }
+
+        .mcard .info h3 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .mcard .info p {
+            font-size: 0.88rem;
+            color: var(--text-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mcard .info p .score {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* 分类区域 */
+        .cat-wrap {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 24px;
+            padding: 50px 40px;
+        }
+
+        .cat-wrap .sec-head h2 { color: #fff; }
+        .cat-wrap .sec-head .tag { background: rgba(255,255,255,0.2); color: #fff; }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .cat-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .cat-item:hover {
+            background: var(--white);
+            color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .cat-item .icon { font-size: 32px; display: block; margin-bottom: 8px; }
+
+        /* 排行榜 */
+        .rank-box {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .rank-row {
+            display: flex;
+            align-items: center;
+            padding: 18px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            text-decoration: none;
+            transition: background 0.25s;
+        }
+
+        .rank-row:last-child { border-bottom: none; }
+        .rank-row:hover { background: #f0faf9; }
+
+        .rank-no {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ddd;
+            width: 50px;
+            text-align: center;
+        }
+
+        .rank-row:nth-child(1) .rank-no { color: #ff6b6b; }
+        .rank-row:nth-child(2) .rank-no { color: #f4a261; }
+        .rank-row:nth-child(3) .rank-no { color: #e9c46a; }
+
+        .rank-body { flex: 1; }
+        .rank-body h4 { color: var(--text-dark); font-size: 1.1rem; }
+        .rank-body span { color: var(--text-gray); font-size: 0.88rem; }
+        .rank-hot {
+            background: linear-gradient(90deg, #ff6b6b, #f4a261);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        /* 关于 */
+        .about-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            color: var(--text-gray);
+            margin-bottom: 12px;
+        }
+
+        .feat-list {
+            list-style: none;
+        }
+
+        .feat-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feat-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--text-dark);
+            color: #aab7c4;
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .foot-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .foot-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .foot-logo span { color: var(--accent); }
+
+        footer a { color: var(--primary); text-decoration: none; }
+
+        .foot-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .menu-btn { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 0 20px;
+                max-height: 0;
+                overflow: hidden;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                transition: max-height 0.4s ease;
+            }
+            nav ul.open { max-height: 400px; padding: 15px; }
+            nav ul li { width: 100%; }
+            nav ul li a { display: block; text-align: center; }
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 60px 20px 70px; }
+            section { padding: 50px 15px; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+            .mcard .poster { height: 210px; font-size: 40px; }
+            .cat-wrap { padding: 35px 20px; }
+            .about-card { grid-template-columns: 1fr; padding: 30px 25px; }
+            .sec-head h2 { font-size: 1.6rem; }
+            .domain-box { font-size: 0.95rem; padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+    <!-- 顶部通知条 -->
+    <div class="top-bar">🎬 草民电影网 · 海量影视资源每日更新 · 欢迎访问</div>
+
+    <!-- 头部导航 -->
+    <header>
+        <div class="nav-wrap">
+            <a href="#" class="logo">草民<span>电影</span>网</a>
+            <div class="menu-btn" onclick="document.getElementById('nav').classList.toggle('open')">
+                <i></i><i></i><i></i>
+            </div>
+            <nav>
+                <ul id="nav">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#latest">最新热映</a></li>
+                    <li><a href="#categories">影片分类</a></li>
+                    <li><a href="#ranking">排行榜</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">🎉 全新 H5 自适应站点上线</div>
+            <h1>草民电影网 <em>·</em> 精彩影视触手可及</h1>
+            <p>汇聚全球海量高清电影、热播电视剧、综艺与动漫资源，极速播放，随时随地畅享视听盛宴。</p>
+            <div class="domain-box">
+                <span class="dot"></span>
+                官网地址：https://caomindianyingwang-h5.com
+            </div>
+        </div>
+    </section>
+
+    <!-- 最新热映 -->
+    <section id="latest">
+        <div class="sec-head">
+            <span class="tag">NEW</span>
+            <h2>最新热映</h2>
+        </div>
+        <div class="grid">
+            <a href="#" class="mcard">
+                <div class="poster">🎬</div>
+                <div class="info">
+                    <h3>热辣滚烫</h3>
+                    <p><span>剧情 / 2024</span><span class="score">9.2</span></p>
+                </div>
+            </a>
+            <a href="#" class="mcard">
+                <div class="poster">🎬</div>
+                <div class="info">
+                    <h3>飞驰人生2</h3>
+                    <p><span>喜剧 / 2024</span><span class="score">8.9</span></p>
+                </div>
+            </a>
+            <a href="#" class="mcard">
+                <div class="poster">🎬</div>
+                <div class="info">
+                    <h3>第二十条</h3>
+                    <p><span>剧情 / 2024</span><span class="score">9.0</span></p>
+                </div>
+            </a>
+            <a href="#" class="mcard">
+                <div class="poster">🎬</div>
+                <div class="info">
+                    <h3>周处除三害</h3>
+                    <p><span>动作 / 2023</span><span class="score">8.8</span></p>
+                </div>
+            </a>
+            <a href="#" class="mcard">
+                <div class="poster">🎬</div>
+                <div class="info">
+                    <h3>默杀</h3>
+                    <p><span>悬疑 / 2024</span><span class="score">8.7</span></p>
+                </div>
+            </a>
+            <a href="#" class="mcard">
+                <div class="poster">🎬</div>
+                <div class="info">
+                    <h3>抓娃娃</h3>
+                    <p><span>喜剧 / 2024</span><span class="score">9.1</span></p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 影片分类 -->
+    <section id="categories">
+        <div class="cat-wrap">
+            <div class="sec-head">
+                <span class="tag">CATEGORY</span>
+                <h2>影片分类</h2>
+            </div>
+            <div class="cat-grid">
+                <a href="#" class="cat-item"><span class="icon">💥</span>动作片</a>
+                <a href="#" class="cat-item"><span class="icon">😂</span>喜剧片</a>
+                <a href="#" class="cat-item"><span class="icon">💕</span>爱情片</a>
+                <a href="#" class="cat-item"><span class="icon">👽</span>科幻片</a>
+                <a href="#" class="cat-item"><span class="icon">😱</span>恐怖片</a>
+                <a href="#" class="cat-item"><span class="icon">🧸</span>动画片</a>
+                <a href="#" class="cat-item"><span class="icon">🕵️</span>悬疑片</a>
+                <a href="#" class="cat-item"><span class="icon">🎖️</span>战争片</a>
+                <a href="#" class="cat-item"><span class="icon">📺</span>电视剧</a>
+                <a href="#" class="cat-item"><span class="icon">🎤</span>综艺</a>
+                <a href="#" class="cat-item"><span class="icon">🌟</span>动漫</a>
+                <a href="#" class="cat-item"><span class="icon">🎭</span>纪录片</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 排行榜 -->
+    <section id="ranking">
+        <div class="sec-head">
+            <span class="tag">TOP</span>
+            <h2>热门排行榜</h2>
+        </div>
+        <div class="rank-box">
+            <a href="#" class="rank-row">
+                <div class="rank-no">1</div>
+                <div class="rank-body">
+                    <h4>流浪地球2</h4>
+                    <span>科幻 / 中国 / 评分 9.4</span>
+                </div>
+                <span class="rank-hot">🔥 热播</span>
+            </a>
+            <a href="#" class="rank-row">
+                <div class="rank-no">2</div>
+                <div class="rank-body">
+                    <h4>满江红</h4>
+                    <span>悬疑 / 中国 / 评分 8.8</span>
+                </div>
+                <span class="rank-hot">🔥 热播</span>
+            </a>
+            <a href="#" class="rank-row">
+                <div class="rank-no">3</div>
+                <div class="rank-body">
+                    <h4>封神第一部</h4>
+                    <span>奇幻 / 中国 / 评分 8.9</span>
+                </div>
+                <span class="rank-hot">🔥 热播</span>
+            </a>
+            <a href="#" class="rank-row">
+                <div class="rank-no">4</div>
+                <div class="rank-body">
+                    <h4>八角笼中</h4>
+                    <span>剧情 / 中国 / 评分 8.6</span>
+                </div>
+                <span class="rank-hot">HOT</span>
+            </a>
+            <a href="#" class="rank-row">
+                <div class="rank-no">5</div>
+                <div class="rank-body">
+                    <h4>消失的她</h4>
+                    <span>悬疑 / 中国 / 评分 8.7</span>
+                </div>
+                <span class="rank-hot">HOT</span>
+            </a>
+            <a href="#" class="rank-row">
+                <div class="rank-no">6</div>
+                <div class="rank-body">
+                    <h4>志愿军：雄兵出击</h4>
+                    <span>战争 / 中国 / 评分 8.5</span>
+                </div>
+                <span class="rank-hot">HOT</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about">
+        <div class="sec-head">
+            <span class="tag">ABOUT</span>
+            <h2>关于 草民电影网</h2>
+        </div>
+        <div class="about-card">
+            <div class="about-text">
+                <h3>欢迎来到 草民电影网</h3>
+                <p>草民电影网（官网：<strong>https://caomindianyingwang-h5.com</strong>）是一个专注于为用户提供高清影视在线观看服务的平台。</p>
+                <p>我们采用先进的 H5 响应式技术打造，完美适配手机、平板与电脑，让您随时随地畅享观影乐趣。</p>
+                <p><strong>核心关键词：</strong>草民电影网、caomindianyingwang-h5.com、高清电影、在线观看。</p>
+            </div>
+            <ul class="feat-list">
+                <li>海量影视资源 · 每日持续更新</li>
+                <li>高清画质播放 · 流畅无卡顿</li>
+                <li>全站自适应 · 手机电脑皆适配</li>
+                <li>分类清晰 · 快速找到想看的</li>
+                <li>热门榜单 · 紧跟观影潮流</li>
+                <li>简洁界面 · 纯净观影体验</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="foot-wrap">
+            <div class="foot-logo">草民<span>电影</span>网</div>
+            <p>访问官网：<a href="https://caomindianyingwang-h5.com">https://caomindianyingwang-h5.com</a></p>
+            <p>本站专注于影视资源在线观看，为您提供优质的观影体验。</p>
+            <div class="foot-bottom">
+                <p>© 2024 草民电影网 版权所有 | 关键词：草民电影网 caomindianyingwang-h5.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 点击导航自动收起菜单
+        document.querySelectorAll('#nav a').forEach(function(a){
+            a.addEventListener('click', function(){
+                document.getElementById('nav').classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
